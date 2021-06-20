@@ -1,6 +1,8 @@
+import {AiFillPauseCircle} from 'react-icons/ai';
+
 function Pause() {
     return (
-        <div></div>
+        <div>{AiFillPauseCircle}</div>
     );
 }
 

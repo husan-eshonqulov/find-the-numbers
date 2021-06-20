@@ -5,7 +5,7 @@ function Menu(props: any) {
     return (
         <div>
             <Time leftTime={props.leftTime} />
-            <Pause />
+            {/* <Pause /> */}
         </div>
     );
 }

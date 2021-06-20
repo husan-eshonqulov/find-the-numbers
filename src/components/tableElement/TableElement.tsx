@@ -1,17 +1,19 @@
+import './TableElement.css';
+
 function TableElement(props: any) {
   if (props.statusElement === true) {
     return (
-      <div className="d-inline-block p-1 m-1 bg-info">{props.tableElement}</div>
+      <button className="btn d-inline-block p-1 m-1 bg-info btn-box-shadow">{props.tableElement}</button>
     );
   } else {
     return (
-      <div
-        className="d-inline-block p-1 m-1"
+      <button
+        className="btn d-inline-block p-1 m-1 btn-box-shadow"
         onClick={() => props.handleClick(props.indexRow, props.indexCol)}
       >
         {props.tableElement}
         {props.statusElement}
-      </div>
+      </button>
     );
   }
 }

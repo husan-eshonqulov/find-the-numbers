@@ -3,6 +3,7 @@ import Menu from "../menu/Menu";
 import FindTheNum from "../findTheNum/FindTheNum";
 import LeftNumber from "../leftNum/LeftNum";
 import Table from "../table/Table";
+import PlayAgain from "../playAgain/PlayAgain";
 
 function App() {
   const [leftTime, setLeftTime] = useState(119);
@@ -15,6 +16,7 @@ function App() {
   const [table, setTable] = useState(
     createTable(createMatrix(theNum, 10), indices, theNum)
   );
+  const [corrects, setCorrects] = useState(0);
   const [status, setStatus] = useState(true);
 
   useEffect(() => {
@@ -23,11 +25,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (leftNum === 0){
-      setTheNum(Math.floor(Math.random() * 10));
+    if (leftNum === 0) {
+      const thenum = Math.floor(Math.random() * 10);
+      setTheNum(thenum);
       setIndices(createIndices(10));
       setStatusElements(new Array(10).fill(new Array(10).fill(false)));
-      setTable(createTable(createMatrix(theNum, 10), indices, theNum));
+      setTable(createTable(createMatrix(thenum, 10), indices, thenum));
       setLeftNum(10);
     }
   }, [leftNum]);
@@ -48,6 +51,7 @@ function App() {
             !el &&
             table[indexRow][indexCol] === theNum
           ) {
+            setCorrects((prev) => prev + 1);
             setLeftNum((prev) => prev - 1);
             return true;
           } else {
@@ -60,6 +64,18 @@ function App() {
         });
       });
     });
+  };
+
+  const handlePlayAgain = () => {
+    setLeftTime(119);
+    const thenum = Math.floor(Math.random() * 10);
+    setTheNum(thenum);
+    setIndices(createIndices(10));
+    setStatusElements(new Array(10).fill(new Array(10).fill(false)));
+    setTable(createTable(createMatrix(thenum, 10), indices, thenum));
+    setLeftNum(10);
+    setCorrects(0);
+    setStatus(true);
   };
 
   if (status) {
@@ -76,7 +92,13 @@ function App() {
       </div>
     );
   } else {
-    return <div>Game Over</div>;
+    return (
+      <div>
+        <div>Game Over</div>
+        <div>Corrects: {corrects}</div>
+        <PlayAgain handlePlayAgain={handlePlayAgain} />
+      </div>
+    );
   }
 }
 
