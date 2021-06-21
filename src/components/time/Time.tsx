@@ -1,16 +1,17 @@
 function Time(props: any) {
-    const leftMin = Math.floor(props.leftTime / 60);
-    let leftSec: number | string = props.leftTime - leftMin * 60;
+    let seconds: string | number = Math.floor(props.timer / 100);
+    let mSeconds: string | number = props.timer % 100;
 
-    if (leftSec < 10){
-        leftSec = '0' + leftSec;
-    }
+    seconds = (seconds < 10) ? '0' + seconds : seconds;
+    mSeconds = (mSeconds < 10) ? '0' + mSeconds : mSeconds;
 
     return (
-        <div className="d-flex">
-            <div>0{leftMin}</div>
-            <div>:</div>
-            <div>{leftSec}</div>
+        <div className="d-inline-block">
+            <div className="d-flex">
+                <div>{seconds}</div>
+                <div>:</div>
+                <div>{mSeconds}</div>
+            </div>
         </div>
     );
 }

@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import Menu from "../menu/Menu";
+import Time from "../time/Time";
 import FindTheNum from "../findTheNum/FindTheNum";
 import LeftNumber from "../leftNum/LeftNum";
 import Table from "../table/Table";
+import ShowRecord from "../showRecord/ShowRecord";
 import PlayAgain from "../playAgain/PlayAgain";
 
+let TIMERID: any;
+
 function App() {
-  const [leftTime, setLeftTime] = useState(119);
+  const [timer, setTimer] = useState(0);
   const [theNum, setTheNum] = useState(Math.floor(Math.random() * 10));
   const [leftNum, setLeftNum] = useState(10);
   const [indices, setIndices] = useState(createIndices(10));
@@ -16,32 +19,24 @@ function App() {
   const [table, setTable] = useState(
     createTable(createMatrix(theNum, 10), indices, theNum)
   );
-  const [corrects, setCorrects] = useState(0);
   const [status, setStatus] = useState(true);
+  const [records, setRecords] = useState<number[]>([]);
 
   useEffect(() => {
-    const intervalId = setInterval(() => setLeftTime((prev) => prev - 1), 1000);
-    return () => clearInterval(intervalId);
-  }, []);
+    if (status) {
+      TIMERID = setInterval(() => setTimer((prev) => prev + 1), 10);
+    }
+    return () => clearInterval(TIMERID);
+  }, [status]);
 
   useEffect(() => {
     if (leftNum === 0) {
-      const thenum = Math.floor(Math.random() * 10);
-      setTheNum(thenum);
-      setIndices(createIndices(10));
-      setStatusElements(new Array(10).fill(new Array(10).fill(false)));
-      setTable(createTable(createMatrix(thenum, 10), indices, thenum));
-      setLeftNum(10);
+      setRecords((prev) => [...prev, timer]);
+      setStatus(false);
     }
   }, [leftNum]);
 
-  useEffect(() => {
-    if (leftTime === 0) {
-      setStatus(false);
-    }
-  }, [leftTime]);
-
-  const handleClick = (indexRow: any, indexCol: any) => {
+  const handleElementClick = (indexRow: any, indexCol: any) => {
     setStatusElements((prev: any): any => {
       return prev.map((row: any, indexR: any) => {
         return row.map((el: any, indexC: any) => {
@@ -51,7 +46,6 @@ function App() {
             !el &&
             table[indexRow][indexCol] === theNum
           ) {
-            setCorrects((prev) => prev + 1);
             setLeftNum((prev) => prev - 1);
             return true;
           } else {
@@ -67,26 +61,25 @@ function App() {
   };
 
   const handlePlayAgain = () => {
-    setLeftTime(119);
+    setTimer(0);
     const thenum = Math.floor(Math.random() * 10);
     setTheNum(thenum);
     setIndices(createIndices(10));
     setStatusElements(new Array(10).fill(new Array(10).fill(false)));
     setTable(createTable(createMatrix(thenum, 10), indices, thenum));
     setLeftNum(10);
-    setCorrects(0);
     setStatus(true);
   };
 
   if (status) {
     return (
       <div>
-        <Menu leftTime={leftTime} />
+        <Time timer={timer} />
         <FindTheNum theNum={theNum} />
         <Table
           table={table}
           statusElements={statusElements}
-          handleClick={handleClick}
+          handleClick={handleElementClick}
         />
         <LeftNumber leftNum={leftNum} />
       </div>
@@ -95,7 +88,7 @@ function App() {
     return (
       <div>
         <div>Game Over</div>
-        <div>Corrects: {corrects}</div>
+        <ShowRecord records={records} score={timer} />
         <PlayAgain handlePlayAgain={handlePlayAgain} />
       </div>
     );
