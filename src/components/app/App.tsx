@@ -1,3 +1,4 @@
+import './App.css';
 import { useState, useEffect } from "react";
 import Time from "../time/Time";
 import FindTheNum from "../findTheNum/FindTheNum";
@@ -26,12 +27,14 @@ function App() {
     if (status) {
       TIMERID = setInterval(() => setTimer((prev) => prev + 1), 10);
     }
+    else {
+      setRecords((prev) => [...prev, timer]);
+    }
     return () => clearInterval(TIMERID);
-  }, [status]);
+  }, [status, timer]);
 
   useEffect(() => {
     if (leftNum === 0) {
-      setRecords((prev) => [...prev, timer]);
       setStatus(false);
     }
   }, [leftNum]);
@@ -73,23 +76,35 @@ function App() {
 
   if (status) {
     return (
-      <div>
-        <Time timer={timer} />
-        <FindTheNum theNum={theNum} />
-        <Table
-          table={table}
-          statusElements={statusElements}
-          handleClick={handleElementClick}
-        />
-        <LeftNumber leftNum={leftNum} />
+      <div className="container text-center">
+        <div className="mt-2 mb-3 timer">
+          <Time timer={timer} />
+        </div>
+        <div className="font-weight-bold">
+          <FindTheNum theNum={theNum} />
+        </div>
+        <div>
+          <Table
+            table={table}
+            statusElements={statusElements}
+            handleClick={handleElementClick}
+          />
+        </div>
+        <div className="font-weight-bold">
+          <LeftNumber leftNum={leftNum} />
+        </div>
       </div>
     );
   } else {
     return (
-      <div>
-        <div>Game Over</div>
-        <ShowRecord records={records} score={timer} />
-        <PlayAgain handlePlayAgain={handlePlayAgain} />
+      <div className="container text-center mt-5">
+        <div className="game-over">Game Over</div>
+        <div className="my-3">
+          <ShowRecord records={records} score={timer} />
+        </div>
+        <div>
+          <PlayAgain handlePlayAgain={handlePlayAgain} />
+        </div>
       </div>
     );
   }

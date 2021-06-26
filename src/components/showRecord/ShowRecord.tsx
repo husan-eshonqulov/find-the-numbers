@@ -23,7 +23,7 @@ function ShowRecord(props: any) {
             New Record: <Time timer={score} />
           </div>
           <div>
-            Previous Record: <Time timer={prevR} />
+            Prev Record: <Time timer={prevR} />
           </div>
         </div>
       );
