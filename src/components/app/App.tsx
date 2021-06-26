@@ -77,33 +77,37 @@ function App() {
   if (status) {
     return (
       <div className="container text-center">
-        <div className="mt-2 mb-3 timer">
-          <Time timer={timer} />
-        </div>
-        <div className="font-weight-bold">
-          <FindTheNum theNum={theNum} />
-        </div>
-        <div>
-          <Table
-            table={table}
-            statusElements={statusElements}
-            handleClick={handleElementClick}
-          />
-        </div>
-        <div className="font-weight-bold">
-          <LeftNumber leftNum={leftNum} />
+        <div className="height-100 d-flex flex-column justify-content-center">
+          <div className="mb-3 timer">
+            <Time timer={timer} />
+          </div>
+          <div className="font-weight-bold size-18">
+            <FindTheNum theNum={theNum} />
+          </div>
+          <div>
+            <Table
+              table={table}
+              statusElements={statusElements}
+              handleClick={handleElementClick}
+            />
+          </div>
+          <div className="font-weight-bold size-18">
+            <LeftNumber leftNum={leftNum} />
+          </div>
         </div>
       </div>
     );
   } else {
     return (
-      <div className="container text-center mt-5">
-        <div className="game-over">Game Over</div>
-        <div className="my-3">
-          <ShowRecord records={records} score={timer} />
-        </div>
-        <div>
-          <PlayAgain handlePlayAgain={handlePlayAgain} />
+      <div className="container text-center">
+        <div className="height-100 d-flex flex-column justify-content-center">
+          <div className="game-over">Game Over</div>
+          <div className="my-3 size-22">
+            <ShowRecord records={records} score={timer} />
+          </div>
+          <div>
+            <PlayAgain handlePlayAgain={handlePlayAgain} />
+          </div>
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import './TableElement.css';
 function TableElement(props: any) {
   if (props.statusElement === true) {
     return (
-      <button className="btn d-inline-block p-1 m-1 bg-info btn-box-shadow">{props.tableElement}</button>
+      <button className="btn d-inline-block p-1 m-1 bg-secondary text-white btn-box-shadow">{props.tableElement}</button>
     );
   } else {
     return (

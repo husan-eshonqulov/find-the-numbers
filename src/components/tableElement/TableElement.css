@@ -1,3 +1,7 @@
+.btn-box-shadow {
+    font-size: 22px !important;
+}
+
 .btn-box-shadow:focus {
     box-shadow: none !important;
 }
