@@ -27,9 +27,6 @@ function App() {
     if (status) {
       TIMERID = setInterval(() => setTimer((prev) => prev + 1), 10);
     }
-    else {
-      setRecords((prev) => [...prev, timer]);
-    }
     return () => clearInterval(TIMERID);
   }, [status]);
 
@@ -72,6 +69,7 @@ function App() {
     setTable(createTable(createMatrix(thenum, 10), indices, thenum));
     setLeftNum(10);
     setStatus(true);
+    setRecords((prev) => [...prev, timer]);
   };
 
   if (status) {

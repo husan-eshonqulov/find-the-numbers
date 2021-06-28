@@ -5,40 +5,36 @@ function ShowRecord(props: any) {
   const score = props.score;
   const record = Math.min(...records);
 
-  if (record === score) {
-    if (records.length === 1) {
-      return (
-        <div>
-          Score: <Time timer={score} />
-        </div>
-      );
-    } else {
-      let slicedRec = records.slice();
-      const indexRec = slicedRec.indexOf(score);
-      slicedRec.splice(indexRec, 1);
-      const prevR = Math.min(...slicedRec);
+  if (records.length === 0) {
+    return (
+      <div>
+        Score: <Time timer={score} />
+      </div>
+    );
+  } else {
+    if (score < record) {
       return (
         <div>
           <div>
             New Record: <Time timer={score} />
           </div>
           <div>
-            Prev Record: <Time timer={prevR} />
+            Prev Record: <Time timer={record} />
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div>
+            Score: <Time timer={score} />
+          </div>
+          <div>
+            Record: <Time timer={record} />
           </div>
         </div>
       );
     }
-  } else {
-    return (
-      <div>
-        <div>
-          Score: <Time timer={score} />
-        </div>
-        <div>
-          Record: <Time timer={record} />
-        </div>
-      </div>
-    );
   }
 }
 
