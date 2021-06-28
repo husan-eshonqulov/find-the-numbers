@@ -31,7 +31,7 @@ function App() {
       setRecords((prev) => [...prev, timer]);
     }
     return () => clearInterval(TIMERID);
-  }, [status, timer]);
+  }, [status]);
 
   useEffect(() => {
     if (leftNum === 0) {
