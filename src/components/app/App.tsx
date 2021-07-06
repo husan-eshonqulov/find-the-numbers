@@ -76,13 +76,13 @@ function App() {
     return (
       <div className="container text-center">
         <div className="height-100 d-flex flex-column justify-content-center">
-          <div className="mb-3 timer">
+          <div className="mt-md-0 mt-5 mb-3 timer">
             <Time timer={timer} />
           </div>
           <div className="font-weight-bold size-18">
             <FindTheNum theNum={theNum} />
           </div>
-          <div>
+          <div className="my-1">
             <Table
               table={table}
               statusElements={statusElements}

@@ -8,3 +8,10 @@
     box-shadow: none !important;
     background-color: none;
 }
+
+@media (max-width: 374px) {
+    .btn-box-shadow {
+        font-size: 18px !important;
+        margin: 4px !important;
+    }
+}
